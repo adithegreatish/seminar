@@ -44,7 +44,7 @@ Project Directory: C:\Users\adity\Downloads\seminar\Implementation
          tests/test_neural_baseline.py ...
          tests/test_preprocessing.py ...
          tests/test_stability.py ...
-         13 passed in 10.41s
+         14 passed in 15.4s
 
 ======================================================================
   3. SERIALIZED MODEL BINARIES
@@ -135,7 +135,7 @@ python scripts/01_train_baselines.py
 # Step 2: Compute TreeExplainer SHAP values and feature attribution plots
 python scripts/02_explain_shap.py
 
-# Step 3: Run DC-FFP adversarial evaluation and SGGS query benchmark
+# Step 3: Run DC-FFP adversarial evaluation and QGGS / SGGS query benchmark
 python scripts/03_adversarial_evaluation.py
 
 # Step 4: Run paired 500-sample explanation stability and 4-quadrant analysis
@@ -150,7 +150,7 @@ python scripts/06_cross_dataset_validation.py
 # Step 7: Execute port-shift stress test (8-feat control vs 10-feat model)
 python scripts/audit_port_shift.py
 
-# Step 8: Build final consolidated 40-row results CSV table
+# Step 8: Build final consolidated 42-row results CSV table
 python scripts/build_final_tables.py
 ```
 
@@ -207,7 +207,7 @@ Implementation/
 │   ├── audit/                             # Phase 9 audit reports & logs
 │   ├── final/                             # Seminar-ready final deliverables
 │   │   ├── final_methodology.md           # Formal academic methodology
-│   │   ├── final_results_tables.csv       # Consolidated 40-row metrics table
+│   │   ├── final_results_tables.csv       # Consolidated 42-row metrics table
 │   │   ├── limitations_and_future_work.md # Comprehensive academic limitations
 │   │   ├── seminar_defense_points.md      # Viva voce cheat sheet
 │   │   └── reproducibility_summary.md     # This independent verification guide

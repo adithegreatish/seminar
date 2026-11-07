@@ -127,14 +127,15 @@
 
 ---
 
-### Slide 12: Discovery of the 94.13% Port Redirection Evasion
+### Slide 12: Discovery of the 94.13% Tabular Port-Shift Evasion
 - **Slide Content:**
-  - Testbed artifact: Attacks targeted default ports (80 HTTP, 22 SSH, 21 FTP).
+  - Testbed artifact: Attacks in the dataset targeted default ports (80 HTTP, 22 SSH, 21 FTP).
   - The model learned: `L4_DST_PORT == 80/22/21` $\implies$ Attack.
-  - **Adversarial Evaluation:** Attacker hosts service on alternate ports (HTTP on 8080, SSH on 2222).
-  - **Result:** **1,572 out of 1,670 attacks evade detection (94.13% EVASION RATE!)**
+  - **Stress-Test Evaluation:** Remapping service ports in tabular records (HTTP on 8080, SSH on 2222).
+  - *Methodological Note:* Evaluated as a tabular feature-shift stress test; no live network packet redirection was performed.
+  - **Result:** **A tabular destination-port feature-shift stress test produced 1,572 evasions among 1,670 initially detected attacks (94.13% EVASION RATE!)**
 - **Speaking Notes (2 min):**
-  > "This is a key discovery in our research. The 10-feature model achieved high accuracy through shortcut learning. In CSE-CIC-IDS2018, attacks were run against standard server ports. The trees memorized destination port numbers rather than learning traffic geometry. When we simulated a realistic adversary running an attack on an alternate port—like SSH on 2222 or HTTP on 8080—the model suffered a catastrophic collapse, missing 94.13% of attacks! Excluding ports forces the model to learn intrinsic packet dynamics."
+  > "This is a key discovery in our research. The 10-feature model achieved high accuracy through shortcut learning. In CSE-CIC-IDS2018, attacks were recorded against standard server ports. The trees memorized destination port numbers rather than learning traffic geometry. When we performed a tabular destination-port feature-shift stress test remapping ports—such as SSH on 2222 or HTTP on 8080—the model suffered a catastrophic collapse, missing 94.13% of attacks (1,572 out of 1,670)! We explicitly emphasize that this is a feature-space stress test without live wire redirection. Excluding ports forces the model to learn intrinsic packet dynamics."
 
 ---
 
@@ -163,7 +164,7 @@
   - Summary of contributions:
     1. Leakage-free baseline: XGBoost 98.16% Acc, 0.9238 Macro-F1.
     2. Domain-constrained evasion: 21.9% - 28.5% evasion under 20% flow padding.
-    3. Port shortcut vulnerability: 94.13% evasion under port redirection.
+    3. Port shortcut vulnerability: A tabular destination-port feature-shift stress test produced 1,572 evasions among 1,670 attacks (94.13% evasion).
     4. SHAP stability caveat: Stability $\ne$ correctness (Quadrant IV deception).
   - Future Work: Hardware packet capture validation on UNSW-NB15, adversarial training under physical flow bounds.
 - **Speaking Notes (1 min):**

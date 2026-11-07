@@ -121,18 +121,33 @@ Following perturbation, the record is projected into the valid domain $\mathcal{
 
 ---
 
-## 5. Surrogate-Guided Greedy Search (SGGS) & Query Accounting
+## 5. Query-Guided Greedy Search (QGGS / SGGS) & Query Accounting
 
-SGGS simulates a black-box adversary iteratively querying the target model's output probabilities $\mathcal{P}(\text{Attack} \mid x)$:
-1. **Initial Clean Prediction:** 1 query per sample is executed to verify initial attack detection ($\mathcal{P} \ge 0.50$).
-2. **Iterative Search:** In each iteration, 5 candidate mutations (one per mutable feature $j \in \mathcal{M}$) are evaluated with step budget $\alpha = 0.05$:
-   $$j^* = \arg\min_{j \in \mathcal{M}} \mathcal{P}(\text{Attack} \mid \text{Project}(x^{(k)} + \alpha x^{(k)}_j))$$
-3. **Query Accounting Reconciliation:**
-   - Maximum search iterations: $I_{max} = 3$ rounds.
-   - Candidate search queries per round: 5 queries ($|\mathcal{M}| = 5$).
-   - Search query ceiling: $3 \times 5 = 15$ queries.
-   - Total query ceiling per sample: $1\text{ (initial)} + 15\text{ (search)} = \mathbf{16\text{ queries}}$ (strictly enforced; theoretical and observed maximum = 16 queries). Minimum queries = 11 queries when early termination occurs upon evasion.
-   - Extended Search (Config B): $I_{max} = 10$ rounds; candidate ceiling $= 1 + 10 \times 5 = 51$ queries; observed maximum $= 46$ queries; average $= 27.6$ queries.
+While historically designated as Surrogate-Guided Greedy Search (SGGS) in preliminary research notes, the implemented attack is formally defined as **Query-Guided Greedy Search (QGGS)** because it directly queries the target model's output probabilities $\mathcal{P}(\text{Attack} \mid x)$ without requiring an auxiliary surrogate model.
+
+### 5.1 Formulation & Objective
+QGGS simulates a query-limited black-box adversary seeking to evade detection with minimal model queries:
+1. **Initial Clean Prediction:** 1 query per sample is executed to verify initial attack detection ($\mathcal{P}(\text{Attack} \mid x) \ge 0.50$). Only true positives are subjected to perturbation.
+2. **Iterative Coordinate Descent:** In each iteration $k \in \{1, \dots, I_{\max}\}$, 5 candidate mutations (one per mutable feature $j \in \mathcal{M}$, with $|\mathcal{M}| = 5$) are evaluated with coordinate step budget $\alpha = 0.05$:
+   $$j^* = \arg\min_{j \in \mathcal{M}} \mathcal{P}(\text{Attack} \mid \text{Project}(x^{(k-1)} + \alpha x^{(k-1)}_j))$$
+   If $\min_{j} \mathcal{P} < \mathcal{P}^{(k-1)}$, the state updates to $x^{(k)} = \text{Project}(x^{(k-1)} + \alpha x^{(k-1)}_{j^*})$. If no candidate mutation decreases the probability, the search terminates early (plateau convergence).
+
+### 5.2 Perturbation Budget Semantics
+In QGGS, the parameter $\epsilon_{\max} = 0.50$ represents an **accumulated greedy-step budget** that permits up to $\frac{\epsilon_{\max}}{\alpha} = 10$ sequential coordinate steps (for step size $\alpha = 0.05$). When a single feature is repeatedly updated across successive iterations, changes compound geometrically ($x^{(k)} = x^{(k-1)}(1 + \alpha)$). Thus, $\epsilon_{\max}$ serves as a termination limit on cumulative perturbation rounds rather than a strict linear $L_\infty$ box constraint relative to the clean baseline.
+
+### 5.3 Query Accounting Reconciliation
+- Maximum candidate search queries per round: 5 queries ($|\mathcal{M}| = 5$).
+- **Configuration A (Audited Low-Query Benchmark - Authoritative Baseline):**
+  - Search iteration ceiling: $I_{\max} = 3$ rounds.
+  - Search query ceiling: $3 \times 5 = 15$ queries.
+  - Total query ceiling per sample: $1\text{ (initial)} + 15\text{ (search)} = \mathbf{16\text{ queries}}$ (strictly enforced; theoretical and observed maximum = 16 queries).
+  - Observed metrics ($N=100$ attacks): Evasion rate = **6.00%** (6/100); average search queries = 14.9; average total queries = **15.9** (range: 11–16).
+- **Configuration B (Extended Multi-Round Search):**
+  - Search iteration ceiling: $I_{\max} = 10$ rounds.
+  - Search query ceiling: $10 \times 5 = 50$ queries.
+  - Total query ceiling per sample: $1 + 50 = \mathbf{51\text{ queries}}$.
+  - Observed metrics ($N=100$ attacks): Evasion rate = **60.00%** (60/100); average search queries = 26.6; average total queries = **27.6** (range: 11–46).
+- **Retirement of Historical Typo:** The historical 77% evasion figure recorded in an early Phase 10 narrative draft was an unverified drafting typographical error; no saved experiment or code ever produced 77%. The authoritative benchmark is **6.00%** under Configuration A and **60.00%** under Configuration B.
 
 ---
 

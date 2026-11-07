@@ -126,7 +126,9 @@ This research investigates the dual paradigm of **Explainable AI (XAI)** and **A
 - **Evasion Rate at $\epsilon=0.10$:** XGBoost = 4.45%, Random Forest = 13.90%, Decision Tree = 13.39%.
 - **Evasion Rate at $\epsilon=0.20$:** XGBoost = **21.94%**, Random Forest = **28.46%**, Decision Tree = **21.40%**.
 - **Evasion Rate at $\epsilon=0.50$:** XGBoost = **33.83%**, Random Forest = **40.50%**, Decision Tree = **34.43%**.
-- **Active Black-box SGGS Query Attack on XGBoost:** Evasion Success = **6.00%** with average query cost of **16.0** queries.
+- **Query-Guided Greedy Search (QGGS / SGGS) on XGBoost:**
+  - Config A (3-iteration benchmark): Evasion = **6.00%** (6/100; average 15.9 total queries, maximum 16).
+  - Config B (10-iteration extended search): Evasion = **60.00%** (60/100; average 27.6 total queries, maximum 46).
 
 ### 5.5 Explanation Stability Metrics ($\epsilon=0.20$, Paired $N=500$ Attacks)
 - **Mean $L_1$ Attribution Drift:** 0.3484 (Median = 0.2833)
@@ -146,8 +148,8 @@ This research investigates the dual paradigm of **Explainable AI (XAI)** and **A
   - Macro-F1 increases from **0.9238** to **0.9521**.
   - False Positive Rate decreases from **0.0097** to **0.0019**.
   - Feature Importance: `L4_DST_PORT` alone accounts for **24.30% of total split gain**.
-  - **Port Redirection Collapse:** When destination port is altered to alternate service ports, evasion collapses to **94.13%** (1,572 / 1,670 attacks missed).
-  - In contrast, the 8-feature model is invariant to direct changes in source and destination port fields when no other model input features are modified (0 / 1,664 missed).
+  - **Tabular Destination-Port Feature-Shift Stress Test:** Produced 1,572 evasions among 1,670 initially detected attacks (**94.13% evasion rate**). Explicitly, no live network traffic redirection or packet-level attack was executed.
+  - In contrast, the 8-feature baseline is invariant to direct changes in source and destination port fields when no other model input features are modified (0 / 1,664 missed).
 
 ---
 

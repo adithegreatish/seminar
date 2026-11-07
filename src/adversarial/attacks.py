@@ -35,11 +35,17 @@ class DomainConstrainedPerturbationAttack:
         # Enforce all domain invariants
         return enforce_domain_constraints(X_adv, X)
 
-class SurrogateGuidedGreedySearch:
+class QueryGuidedGreedySearch:
     """
-    Black-box / Grey-box query-based adversarial evasion attack.
-    Iteratively queries the target model's output probabilities, identifying
-    the mutable feature whose perturbation most rapidly decreases the attack probability.
+    Black-box query-based adversarial evasion attack (Query-Guided Greedy Search / QGGS).
+    Directly queries the target model's output probabilities to identify the mutable feature
+    whose perturbation most rapidly decreases the attack probability.
+    
+    Budget Semantics:
+    max_epsilon (default 0.50) operates as an accumulated greedy-step budget.
+    With step_budget = 0.05, the attack evaluates up to (max_epsilon / step_budget) = 10 sequential
+    greedy steps. Successive updates on the same feature compound geometrically (1 + alpha)^k
+    rather than imposing a strict per-feature linear L_inf norm cap against the clean vector.
     """
     def __init__(
         self,
@@ -142,4 +148,8 @@ class SurrogateGuidedGreedySearch:
             return float(probs[0])
         preds, _ = self.model.predict(df)
         return float(preds[0])
+
+# Backward-compatible alias for historical references in pipeline scripts
+SurrogateGuidedGreedySearch = QueryGuidedGreedySearch
+
 

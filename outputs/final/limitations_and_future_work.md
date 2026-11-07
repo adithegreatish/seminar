@@ -11,7 +11,7 @@
 ## 1. Scope and Realism of Feature-Space Adversarial Perturbations
 
 ### 1.1 Flow-Feature Level vs. Physical Packet Transmission
-The adversarial evaluations in this research—specifically the Domain-Constrained Flow-Feature Perturbation (DC-FFP) and Surrogate-Guided Greedy Search (SGGS)—operate entirely within tabular feature space. 
+The adversarial evaluations in this research—specifically the Domain-Constrained Flow-Feature Perturbation (DC-FFP) and Query-Guided Greedy Search (QGGS / SGGS)—operate entirely within tabular feature space. 
 - Perturbations mathematically modify the aggregated statistical properties of network flows (e.g., packet counts, byte counts, flow duration) as recorded in NetFlow v9 records.
 - Although rigorous domain constraints were implemented (monotonic non-decreasing modifications $\Delta \ge 0$, integer packet counts, preservation of immutable transport protocols and TCP flags, and adherence to minimum byte-to-packet ratios), **no physical network packets were generated, fragmented, or transmitted across physical wire interfaces**.
 - In operational network environments, an adversary must realize these flow-level modifications by manipulating physical packet streams (e.g., crafting TCP dummy payloads, injecting chaff packets with high TTLs, fragmenting IP packets across anomalous MTU boundaries, or pacing transmissions to introduce jitter).
@@ -54,8 +54,10 @@ In this implementation, stratified random partitioning (70% train, 15% validatio
 ### 3.4 Cross-Dataset Generalizability Pending Local Data Placement
 While an exact semantic alignment protocol and executable evaluation script (`scripts/06_cross_dataset_validation.py`) were developed for the UNSW-NB15 benchmark, experimental execution remains pending local dataset placement due to local network download constraints. In strict accordance with academic integrity standards, no simulated or fabricated cross-dataset scores were reported.
 
-### 3.5 Nature of Port Invariance in the 8-Feature Baseline
-The 8-feature baseline model's zero evasion under direct port modification (0 / 1,664 attacks missed) is a direct mathematical consequence of excluding transport port numbers from its input feature vector. This confirms feature invariance to direct tabular port-field changes when other features remain static, but does not imply operational immunity to real-world multi-stage intrusion campaigns where attackers alter both transmission ports and packet dynamics simultaneously.
+### 3.5 Nature of Port Invariance and Tabular Port-Shift Scope
+The port shortcut investigation evaluated how models respond when transport ports are manipulated:
+- **10-Feature Model Vulnerability:** A tabular destination-port feature-shift stress test produced 1,572 evasions among 1,670 initially detected attacks (94.13% evasion rate). We explicitly emphasize that this was conducted as a tabular feature-space stress test; **no live network traffic redirection or packet-level attack was performed**.
+- **8-Feature Baseline Invariance:** The 8-feature baseline model's zero evasion under direct port modification (0 / 1,664 attacks missed) is a direct mathematical consequence of excluding transport port numbers from its input feature vector. This confirms feature invariance to direct tabular port-field changes when other features remain static, but does not imply operational immunity to real-world multi-stage intrusion campaigns where attackers alter both transmission ports and packet dynamics simultaneously.
 
 ---
 
@@ -113,7 +115,7 @@ Based on the verified experimental findings and limitations, the following resea
 - Explore adversarial retraining formulations that penalize vulnerability to traffic padding while preserving clean-flow precision and preventing false positive inflation.
 
 ### 7.3 Port-Agnostic Feature Engineering
-- To mitigate the severe vulnerability identified in the port ablation study (where destination port redirection caused $94.13\%$ evasion in 10-feature models), develop port-invariant flow representations.
+- To mitigate the severe vulnerability identified in the port ablation study (where a tabular destination-port feature-shift stress test produced 1,572 evasions among 1,670 initially detected attacks, representing a 94.13% evasion rate in 10-feature models), develop port-invariant flow representations.
 - Investigate behavioral graph embeddings, relative inter-arrival packet dynamics, and ratio-based statistical features (e.g., byte-to-packet ratios, forward-to-backward packet ratios) that decouple intrusion detection from ephemeral or spoofable transport port numbers.
 
 ### 7.4 Temporal Block Evaluation & Drift Monitoring
@@ -130,11 +132,11 @@ Based on the verified experimental findings and limitations, the following resea
 
 | Research Dimension | Current Implementation Scope | Known Boundary / Limitation | Proposed Long-Term Mitigation |
 | :--- | :--- | :--- | :--- |
-| **Attack Realism** | Feature-space DC-FFP & SGGS | Tabular flow modifications; no wire transmission | Hardware testbed with TRex / Scapy packet injection |
+| **Attack Realism** | Feature-space DC-FFP & QGGS / SGGS | Tabular flow modifications; no wire transmission | Hardware testbed with TRex / Scapy packet injection |
 | **Physical Constraints** | $\text{BYTES} \ge \text{PKTS} \times 20$ (RFC 791) | NetFlow v9 telemetry specific; not universal L7 law | Collector-adaptive constraint parametrization |
 | **Data Partitioning** | Stratified random splitting (70/15/15) | Potential optimistic bias across multi-flow sessions | Time-blocked chronological evaluation |
 | **Multiclass Support** | 15 attack classes in 200k sample | Severe minority scarcity (e.g., SQLi $N=6$) | Specialized synthetic oversampling or binary cascades |
-| **Port Dependence** | Baseline (8-feat) vs. Extended (10-feat) | 10-feat model exhibits $94.13\%$ port-shift evasion | Strict port-agnostic behavioral feature design |
+| **Port Dependence** | Baseline (8-feat) vs. Extended (10-feat) | 10-feat model exhibits 94.13% tabular port-shift evasion (1,572/1,670) | Strict port-agnostic behavioral feature design |
 | **Explainability** | TreeExplainer log-odds / prob attributions | $N=8$ features limits Spearman rank correlation power | Dimensionality expansion with higher-order flow metrics |
 | **Explanation Stability** | Paired 500-sample 4-quadrant analysis | Quadrant IV ($0.4\%$) proves stability $\ne$ correctness | Multi-objective defense; conformal uncertainty sets |
 | **Inference Benchmark** | Sub-millisecond single/batch evaluation | Excludes packet capture and flow timeout latency | Full-stack eBPF / XDP pipeline benchmarking |

@@ -11,7 +11,7 @@
 ## 1. Executive Research Elevator Pitch (30-Second Summary)
 
 > *"Good morning, respected committee members. My research investigates whether machine learning models for Network Intrusion Detection remain dependable when subjected to controlled adversarial perturbations, and whether their explanations remain stable when predictions fail.*  
-> *Using the 5.9-million flow NF-CSE-CIC-IDS2018 benchmark, we evaluate Decision Trees, Random Forests, and XGBoost under zero-leakage conditions. We introduce Domain-Constrained Flow-Feature Perturbation (DC-FFP) enforcing physical networking laws, explain model decisions with exact SHAP TreeExplainer values, uncover a severe port-shortcut vulnerability (94.1% evasion under port redirection), and demonstrate through a Four-Quadrant analysis that explanation stability does not guarantee classification security."*
+> *Using the 5.9-million flow NF-CSE-CIC-IDS2018 benchmark, we evaluate Decision Trees, Random Forests, and XGBoost under zero-leakage conditions. We introduce Domain-Constrained Flow-Feature Perturbation (DC-FFP) enforcing physical networking laws, explain model decisions with exact SHAP TreeExplainer values, uncover a severe port-shortcut vulnerability (94.13% evasion under a tabular destination-port feature-shift stress test), and demonstrate through a Four-Quadrant analysis that explanation stability does not guarantee classification security."*
 
 ---
 
@@ -31,8 +31,8 @@ Keep these exact verified numbers in mind during questioning:
 | **Evasion Rate at $\epsilon = 0.05$ (DC-FFP)** | 10.34% (173/1673) | 11.62% (194/1669) | **0.66%** (11/1664) |
 | **Evasion Rate at $\epsilon = 0.20$ (DC-FFP)** | 21.40% (358/1673) | 28.46% (475/1669) | **21.94%** (365/1664) |
 | **Evasion Rate at $\epsilon = 0.50$ (DC-FFP)** | 34.43% (576/1673) | 40.50% (676/1669) | **33.83%** (563/1664) |
-| **SGGS Evasion (Config A: Audited 16-Query Benchmark)**| — | — | **6.00%** (6/100, 15.9 avg, max 16 queries) |
-| **SGGS Evasion (Config B: Multi-Step Extended Search)**| — | — | **60.00%** (60/100, 27.6 avg, max 46 queries) |
+| **QGGS / SGGS Evasion (Config A: Audited 16-Query Benchmark)**| — | — | **6.00%** (6/100, 15.9 avg, max 16 queries) |
+| **QGGS / SGGS Evasion (Config B: Multi-Step Extended Search)**| — | — | **60.00%** (60/100, 27.6 avg, max 46 queries) |
 | **Inference Latency (Single Sample Streaming)** | 0.37 ms | 17.73 ms | **0.63 ms** |
 | **Inference Throughput (Vectorized Batch)** | 13.9M flows/sec | 785k flows/sec | **4.39M flows/sec** |
 
@@ -43,8 +43,8 @@ Keep these exact verified numbers in mind during questioning:
 ### Q1: Why did you exclude Source and Destination Ports from your baseline model if adding them improves clean accuracy from 98.16% to 98.90%?
 **Rebuttal:**
 > *"Adding transport ports creates a severe **port-shortcut vulnerability**. In our feature ablation study, the 10-feature XGBoost model relied heavily on destination port (`L4_DST_PORT` accounted for 24.30% of total split gain), associating specific ports like 80 or 21 directly with attacks.*  
-> *When we stress-tested this model under operational service-port redirection (e.g., hosting malicious HTTP on 8080 or SSH on 2222), **94.13% of all attacks evaded detection (1,572 out of 1,670 attacks missed!)**. In contrast, our 8-feature baseline model is **invariant to direct changes in source and destination port fields when no other model input features are modified** (0 out of 1,664 attacks missed under direct port-field manipulation).*  
-> *We explicitly distinguish between direct port-feature manipulation, port-shift distribution stress testing, and live operational traffic redirection. Clean accuracy increases with ports, but real-world resilience collapses."*
+> *A tabular destination-port feature-shift stress test produced 1,572 evasions among 1,670 initially detected attacks (**94.13% evasion rate**). Explicitly, no live network traffic redirection or packet-level attack was performed; the test evaluates model behavior when service port numbers are modified in the feature table. In contrast, our 8-feature baseline model is **invariant to direct changes in source and destination port fields when no other model input features are modified** (0 out of 1,664 attacks missed under direct port-field manipulation).*  
+> *We explicitly distinguish between direct tabular port-feature manipulation, distribution stress testing, and live operational network redirection. Clean accuracy increases with ports, but real-world resilience collapses."*
 
 ### Q2: What is the physical justification for your adversarial perturbation? Can an attacker really modify these features on a real network?
 **Rebuttal:**
@@ -140,7 +140,7 @@ If asked to write equations on the blackboard or whiteboard, write these clearly
 | **Model Selection** | Present Decision Tree (baseline), Random Forest (bagging), and XGBoost (boosting). XGBoost achieved the best balance (98.16% Acc, 0.9238 Macro-F1, 0.97% FPR). |
 | **Explainability (SHAP)** | Emphasize exact Shapley values. Highlight that `OUT_BYTES` and `FLOW_DURATION_MILLISECONDS` drive detections across both models ($\rho_s = 0.8095$). |
 | **Adversarial Robustness** | Highlight that at $\epsilon = 0.20$, evasion reaches 21.94% for XGBoost and 28.46% for RF. Explain why RF collapses faster than XGBoost. |
-| **Port Ablation (Shortcut)** | This is your strongest novelty point! Explain that 10-feature models cheat on ports, collapsing to 94.13% evasion under destination port redirection, while the 8-feature baseline is invariant to direct port manipulation. |
+| **Port Ablation (Shortcut)** | This is your strongest novelty point! Explain that 10-feature models cheat on ports, collapsing to 94.13% evasion (1,572/1,670 attacks missed) under a tabular destination-port feature-shift stress test, while the 8-feature baseline is invariant to direct port manipulation. |
 | **Explanation Stability** | Present the 4-Quadrant analysis. Warn the committee about Quadrant IV (0.4% deceptive stability). |
 | **Conclusion & Limitations** | Acknowledge that this is feature-space perturbation, not wire-level packet injection. State that future work will validate on hardware testbeds. |
 

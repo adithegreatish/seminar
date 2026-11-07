@@ -33,13 +33,14 @@ To maintain strict scientific integrity, all findings are segregated into three 
      - Random Forest: Val Macro-F1 = 0.9056, Test Acc = 97.79%, Test Macro-F1 = 0.9113, FPR = 0.0137, Test ROC-AUC = **0.9574**.
      - XGBoost: Val Macro-F1 = 0.9171, Test Acc = **98.16%**, Test Macro-F1 = **0.9238**, FPR = **0.0097**, Test ROC-AUC = **0.9621**. Selected as top binary model.
    - **SHAP Feature Attributions:** Top 3 global drivers: `OUT_BYTES` (0.7051), `FLOW_DURATION_MILLISECONDS` (0.6560), and `IN_BYTES` (0.4589). Cross-model rank correlation between XGBoost and Random Forest is **0.8095** ($p = 0.0149$).
-   - **Domain-Constrained Adversarial Evasion (DC-FFP & SGGS):**
+   - **Domain-Constrained Adversarial Evasion (DC-FFP & QGGS):**
      - Under DC-FFP at budget $\epsilon=0.20$, evasion rate reaches **21.94%** for XGBoost (365/1664), **28.46%** for Random Forest (475/1669), and **21.40%** for Decision Tree (358/1673). At $\epsilon=0.50$, recall drops to **51.18% - 58.07%**.
      - Zero-epsilon identity formally validated: `assert np.array_equal(original, perturbed_at_epsilon_zero)` on all 30,000 test flows.
-     - SGGS Config A (Audited 16-query benchmark): **6.00% evasion** (6/100, 16.0 queries).
-     - SGGS Config B (Extended multi-step search): **60.00% evasion** (60/100, 38.9 queries).
+     - Query-Guided Greedy Search (QGGS / SGGS):
+       - Config A (Audited 3-iteration benchmark): **6.00% evasion** (6/100; 15.9 average total queries, maximum 16).
+       - Config B (Extended 10-iteration search): **60.00% evasion** (60/100; 27.6 average total queries, maximum 46).
    - **Explanation Stability Analysis:** Mean $L_1$ drift is 0.3484; Top-3 feature overlap is 83.27%; Spearman rank correlation is 0.7364. Four-quadrant analysis: Q1 (Stable Detection & Stable Explanation): 46.2% (231); Q2 (Stable Detection, Fragile Explanation): 31.0% (155); Q3 (Flipped Detection, Shifted Explanation): 22.4% (112); Q4 (Flipped Detection, Deceptive Stability): 0.4% (2).
-   - **Port Feature Ablation & Shortcut Discovery:** Adding `L4_SRC_PORT` and `L4_DST_PORT` boosts clean accuracy from 98.16% to 98.90%, but introduces a catastrophic port shortcut (24.3% split gain on `L4_DST_PORT`). Under service-port redirection, the 10-feature model suffers a **94.13% evasion rate** (1,572/1,670 attacks missed), whereas the 8-feature baseline is invariant to direct port-field manipulation (0/1664 missed).
+   - **Port Feature Ablation & Shortcut Discovery:** Adding `L4_SRC_PORT` and `L4_DST_PORT` boosts clean accuracy from 98.16% to 98.90%, but introduces a severe port shortcut (24.3% split gain on `L4_DST_PORT`). A tabular destination-port feature-shift stress test produced 1,572 evasions among 1,670 initially detected attacks (**94.13% evasion rate**). Explicitly, no live traffic redirection or packet-level network attack was performed; the 8-feature baseline is invariant to direct port-field manipulation (0/1664 missed).
 3. **Proposed Work / Future Extensions:**
    - Transferability evaluation to live UNSW-NB15 hardware captures.
    - Adversarial training incorporating domain-constrained flow bounds.

@@ -33,13 +33,13 @@ All components of the research implementation have been audited and classified a
 | **Cross-Model Correlation** | **Verified** | `outputs/shap/shap_cross_model_comparison.csv` | Spearman $\rho_s = 0.8095$ ($p = 0.0149, df = 6$) between XGBoost and RF rankings. |
 | **DC-FFP Evasion Trajectory** | **Verified** | `outputs/adversarial/robustness_metrics.csv` | At $\epsilon=0.20$: XGB evasion = 21.94% (365/1664); RF evasion = 28.46% (475/1669). |
 | **Zero-Epsilon Identity** | **Verified** | `tests/test_adversarial.py` | `assert np.array_equal(original, perturbed_at_epsilon_zero)` holds on all 30k test flows. |
-| **Port Shortcut Discovery** | **Verified** | `outputs/audit/port_shift_experiment.csv` | 10-feat model collapses to **94.13% evasion** (1,572/1,670) under destination port redirection. |
+| **Port Shortcut Discovery** | **Verified** | `outputs/audit/port_shift_experiment.csv` | 10-feat model collapses to **94.13% evasion** (1,572/1,670) under tabular destination-port feature-shift stress test; no live network packet redirection performed. |
 | **Four-Quadrant Stability** | **Verified** | `outputs/stability/quadrant_analysis.csv` | Calibrated threshold $\tau_{val}=0.2739$: Q1 (46.2%), Q2 (31.0%), Q3 (22.4%), Q4 (0.4%). |
 | **Quadrant IV Hazard** | **Verified** | `outputs/final/final_research_report.md` | 2 samples (0.4%) evade with $L_1 \le \tau$, proving stability $\ne$ correctness. |
 | **Inference Benchmark** | **Verified** | `outputs/audit/latency_benchmark.csv` | Single streaming: DT 0.37ms, XGB 0.63ms, RF 17.73ms. Batch: XGB 4.39M flows/sec. |
 | **Automated Unit Tests** | **Verified** | `tests/` | **14 / 14 tests passing** in 15.4s (`pytest tests/`). |
 | **Reference Notebooks** | **Verified** | Root workspace | `Random_Forest.ipynb` and `XG_Boost.ipynb` preserved untouched. |
-| **Interactive Dashboard** | **Verified** | `dashboard/app.py` | 6-module interactive Streamlit application fully functional. |
+| **Interactive Dashboard** | **Pending live verification** | `dashboard/app.py` | 6-module Streamlit UI implemented; pending live browser session verification in deployment. |
 
 ---
 
@@ -112,15 +112,28 @@ Vectorized Batch Throughput        13.91M flows/s       785k flows/s       4.39M
 
 ---
 
-## 4. Final Verification Command & Artifact Paths
+## 4. Verification Procedures & Metric Reproduction
 
-### 4.1 Master Verification Command
-To verify 100% of all artifacts and tests locally:
+### 4.1 Master Verification Script (Artifact Presence & Unit Testing)
+`scripts/verify_all.py` serves as an **artifact-presence and unit-test verification script**. It validates schema adherence, artifact presence, model loading, and executes the 14-test pytest suite. It operates against frozen artifacts and serialized models; it does not independently recalculate all 5.9M flow baseline metrics or adversarial trajectories from scratch.
+
+To execute the verification suite:
 ```powershell
 python scripts/verify_all.py
 ```
 
-### 4.2 Primary Deliverable Locations
+### 4.2 Full Metric Reproduction & External Requirements
+To independently reproduce all prediction arrays, baseline metrics, and ROC-AUC calculations from scratch:
+1. **Raw Dataset Requirement:** Obtain the complete 5.9-million flow raw dataset (`NF-CSE-CIC-IDS2018.parquet`, SHA-256: `94a974b20bb611c0f4f9d21c97a5a8a113d9ea1ce2860d4da55bfa025687796f`) and place it under `data/raw/`.
+2. **Execute Full Pipeline:**
+   - `python scripts/00_audit_dataset.py` (Validates schema and header invariants)
+   - `python scripts/01_train_baselines.py` (Performs stratified split, trains models, outputs continuous prediction probabilities and ROC-AUC)
+   - `python scripts/02_explain_models.py` (Generates TreeSHAP attributions)
+   - `python scripts/03_adversarial_evaluation.py` (Executes DC-FFP and QGGS benchmarks)
+   - `python scripts/04_explanation_stability.py` (Computes attribution drift and 4-quadrant stability)
+   - `python scripts/audit_port_shift.py` (Executes 5-scenario port shortcut stress test)
+
+### 4.3 Primary Deliverable Locations
 - **Master Research Report:** `outputs/final/final_research_report.md`
 - **Seminar Defense Cheat Sheet:** `outputs/final/seminar_defense_points.md`
 - **Technical Methodology:** `outputs/final/final_methodology.md`
