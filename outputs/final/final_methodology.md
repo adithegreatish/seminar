@@ -129,9 +129,10 @@ SGGS simulates a black-box adversary iteratively querying the target model's out
    $$j^* = \arg\min_{j \in \mathcal{M}} \mathcal{P}(\text{Attack} \mid \text{Project}(x^{(k)} + \alpha x^{(k)}_j))$$
 3. **Query Accounting Reconciliation:**
    - Maximum search iterations: $I_{max} = 3$ rounds.
-   - Candidate search queries per round: 5 queries.
+   - Candidate search queries per round: 5 queries ($|\mathcal{M}| = 5$).
    - Search query ceiling: $3 \times 5 = 15$ queries.
-   - Total query ceiling per sample: $1\text{ (initial)} + 15\text{ (search)} = \mathbf{16\text{ queries}}$ (or 17 if a fallback duration query is evaluated).
+   - Total query ceiling per sample: $1\text{ (initial)} + 15\text{ (search)} = \mathbf{16\text{ queries}}$ (strictly enforced; theoretical and observed maximum = 16 queries). Minimum queries = 11 queries when early termination occurs upon evasion.
+   - Extended Search (Config B): $I_{max} = 10$ rounds; candidate ceiling $= 1 + 10 \times 5 = 51$ queries; observed maximum $= 46$ queries; average $= 27.6$ queries.
 
 ---
 

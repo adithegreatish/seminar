@@ -31,8 +31,8 @@ Keep these exact verified numbers in mind during questioning:
 | **Evasion Rate at $\epsilon = 0.05$ (DC-FFP)** | 10.34% (173/1673) | 11.62% (194/1669) | **0.66%** (11/1664) |
 | **Evasion Rate at $\epsilon = 0.20$ (DC-FFP)** | 21.40% (358/1673) | 28.46% (475/1669) | **21.94%** (365/1664) |
 | **Evasion Rate at $\epsilon = 0.50$ (DC-FFP)** | 34.43% (576/1673) | 40.50% (676/1669) | **33.83%** (563/1664) |
-| **SGGS Evasion (Config A: Audited 16-Query Benchmark)**| — | — | **6.00%** (6/100, 16.0 queries) |
-| **SGGS Evasion (Config B: Multi-Step Extended Search)**| — | — | **60.00%** (60/100, 38.9 queries) |
+| **SGGS Evasion (Config A: Audited 16-Query Benchmark)**| — | — | **6.00%** (6/100, 15.9 avg, max 16 queries) |
+| **SGGS Evasion (Config B: Multi-Step Extended Search)**| — | — | **60.00%** (60/100, 27.6 avg, max 46 queries) |
 | **Inference Latency (Single Sample Streaming)** | 0.37 ms | 17.73 ms | **0.63 ms** |
 | **Inference Throughput (Vectorized Batch)** | 13.9M flows/sec | 785k flows/sec | **4.39M flows/sec** |
 

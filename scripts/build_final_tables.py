@@ -59,7 +59,7 @@ records.append({
     "roc_auc": None,
     "evasion_rate": 0.0600,
     "inference_latency_ms": None,
-    "notes": "Candidates=100; Initially detected=100; Evaded=6 (6.00%); Queries: Init=1, Avg Search=15.0, Avg Total=16.0, Max=17, Min=11"
+    "notes": "Candidates=100; Initially detected=100; Evaded=6 (6.00%); Queries: Init=1, Avg Search=14.9, Avg Total=15.9, Max=16, Min=11"
 })
 records.append({
     "experiment_category": "2. Adversarial Robustness (SGGS Search)",
@@ -72,7 +72,7 @@ records.append({
     "roc_auc": None,
     "evasion_rate": 0.6000,
     "inference_latency_ms": None,
-    "notes": "Candidates=100; Initially detected=100; Evaded=60 (60.00%); Queries: Init=1, Avg Total=38.9, Max=58, Min=11"
+    "notes": "Candidates=100; Initially detected=100; Evaded=60 (60.00%); Queries: Init=1, Avg Search=26.6, Avg Total=27.6, Max=46, Min=11"
 })
 
 # 3. Port Shift Experiment

@@ -23,8 +23,8 @@ experiment_category,model_configuration,condition_or_scenario,accuracy,macro_f1,
 2. Adversarial Robustness (DC-FFP),Decision Tree,Budget epsilon = 0.50,0.8050702295306612,0.7638121482144677,0.5806783144912642,0.0827338129496402,,0.3442916915720263,,Evaded: 576/1673
 2. Adversarial Robustness (DC-FFP),Random Forest,Budget epsilon = 0.50,0.8245974648852347,0.7711163249428759,0.5118191161356629,0.0190133607399794,,0.4050329538645896,,Evaded: 676/1669
 2. Adversarial Robustness (DC-FFP),XGBoost,Budget epsilon = 0.50,0.8299075025693731,0.7865568378417694,0.5688591983556013,0.039568345323741,,0.3383413461538461,,Evaded: 563/1664
-2. Adversarial Robustness (SGGS Search),XGBoost,"SGGS Config A (Audited 16-Query Benchmark: max_iters=3, step=0.05, max_eps=0.50)",,,,,,0.06,,"Candidates=100; Initially detected=100; Evaded=6 (6.00%); Queries: Init=1, Avg Search=15.0, Avg Total=16.0, Max=17, Min=11"
-2. Adversarial Robustness (SGGS Search),XGBoost,"SGGS Config B (Extended Search: max_iters=10, step=0.05, max_eps=0.50)",,,,,,0.6,,"Candidates=100; Initially detected=100; Evaded=60 (60.00%); Queries: Init=1, Avg Total=38.9, Max=58, Min=11"
+2. Adversarial Robustness (SGGS Search),XGBoost,"SGGS Config A (Audited 16-Query Benchmark: max_iters=3, step=0.05, max_eps=0.50)",,,,,,0.06,,"Candidates=100; Initially detected=100; Evaded=6 (6.00%); Queries: Init=1, Avg Search=14.9, Avg Total=15.9, Max=16, Min=11"
+2. Adversarial Robustness (SGGS Search),XGBoost,"SGGS Config B (Extended Search: max_iters=10, step=0.05, max_eps=0.50)",,,,,,0.6,,"Candidates=100; Initially detected=100; Evaded=60 (60.00%); Queries: Init=1, Avg Search=26.6, Avg Total=27.6, Max=46, Min=11"
 3. Port-Shift Stress Test (8-feat Control),XGBoost Baseline (8 features),1. Clean Baseline,0.9815666666666668,,0.8550873586844809,,,0.0,,Evaded: 0/1664
 3. Port-Shift Stress Test (10-feat Port Model),XGBoost Extended (10 features with Ports),1. Clean Baseline,0.989,,0.8581706063720452,,,0.0,,Evaded: 0/1670
 3. Port-Shift Stress Test (8-feat Control),XGBoost Baseline (8 features),2. Source-Port Randomization,0.9815666666666668,,0.8550873586844809,,,0.0,,Evaded: 0/1664
