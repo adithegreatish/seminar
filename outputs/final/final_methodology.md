@@ -121,7 +121,7 @@ Following perturbation, the record is projected into the valid domain $\mathcal{
 
 ---
 
-## 5. Query-Guided Greedy Search (QGGS / SGGS) & Query Accounting
+## 5. Query-Guided Greedy Search (QGGS) & Query Accounting
 
 While historically designated as Surrogate-Guided Greedy Search (SGGS) in preliminary research notes, the implemented attack is formally defined as **Query-Guided Greedy Search (QGGS)** because it directly queries the target model's output probabilities $\mathcal{P}(\text{Attack} \mid x)$ without requiring an auxiliary surrogate model.
 

@@ -51,7 +51,7 @@ All components of the research implementation have been audited and classified a
 | **Random Forest Test ROC-AUC** | **Corrected** | `0.9220` | **`0.957353`** | 0.9220 was Balanced Accuracy (macro-recall); corrected to true probability ROC-AUC. |
 | **XGBoost Test ROC-AUC** | **Corrected** | `0.9868` (interim draft) | **`0.962096`** | 0.9868 was from an uncalibrated threshold run; reconciled to raw tree probability AUC. |
 | **XGBoost Val Macro-F1** | **Corrected** | `0.9231` (narrative draft) | **`0.917064`** | Conflated validation with test Macro-F1 (0.9238); reconciled to authoritative CSV value. |
-| **SGGS Benchmark Evasion** | **Corrected** | `77.00%` (narrative draft) | **`6.00%`** (Config A) | Traced 77% to clerical narrative drafting typo in step 364. Reconciled Config A (strictly $\le$ 16 queries, 6/100, 6.00%) & Config B (strictly $\le$ 51 queries, 60/100, 60.00%). |
+| **QGGS Benchmark Evasion** | **Corrected** | `77.00%` (narrative draft) | **`6.00%`** (Config A) | Traced 77% to clerical narrative drafting typo in step 364. Reconciled Config A (strictly $\le$ 16 queries, 6/100, 6.00%) & Config B (strictly $\le$ 51 queries, 60/100, 60.00%). |
 | **Port Redirection Claim** | **Corrected** | "100% immune" | **"Invariant to direct port changes"** | Replaced absolute operational claim with precise mathematical feature-space description. |
 
 ---
@@ -95,8 +95,8 @@ Test Balanced Accuracy (Hard Preds)   0.9194              0.9220              0.
 DC-FFP Evasion Rate (eps = 0.05)      10.34%              11.62%               0.66%
 DC-FFP Evasion Rate (eps = 0.20)      21.40%              28.46%              21.94%
 DC-FFP Evasion Rate (eps = 0.50)      34.43%              40.50%              33.83%
-SGGS Config A (Audited Benchmark: max 16 Q) —                   —                 6.00% (6/100)
-SGGS Config B (Extended Search: max 46 Q)    —                   —                60.00% (60/100)
+QGGS Config A (Audited Benchmark: max 16 Q) —                   —                 6.00% (6/100)
+QGGS Config B (Extended Search: max 46 Q)    —                   —                60.00% (60/100)
 Destination Port Redirection Evasion     —                   —                94.13% (10-feat)
 Port Direct Manipulation Invariance     0.0%                0.0%                0.0% (8-feat)
 Explanation Stability L1 Drift (eps=0.20) —                  —                Mean: 0.3484

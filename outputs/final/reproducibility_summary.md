@@ -135,7 +135,7 @@ python scripts/01_train_baselines.py
 # Step 2: Compute TreeExplainer SHAP values and feature attribution plots
 python scripts/02_explain_shap.py
 
-# Step 3: Run DC-FFP adversarial evaluation and QGGS / SGGS query benchmark
+# Step 3: Run DC-FFP adversarial evaluation and QGGS query benchmark (formerly SGGS)
 python scripts/03_adversarial_evaluation.py
 
 # Step 4: Run paired 500-sample explanation stability and 4-quadrant analysis

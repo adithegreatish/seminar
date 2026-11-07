@@ -57,7 +57,7 @@ Simultaneously, let $\phi(f, x) \in \mathbb{R}^d$ denote the local feature attri
 ### 2.2 Core Research Objectives
 - **Objective 1 (Methodological Rigor):** Audit the 5.9-million record NF-CSE-CIC-IDS2018 benchmark, establish zero-data-leakage preprocessing, and train Decision Tree, Random Forest, and XGBoost baselines under identical stratified splits.
 - **Objective 2 (Explainability):** Implement exact game-theoretic SHAP TreeExplainer attributions to identify the primary statistical flow features driving benign and malicious decisions across architectures.
-- **Objective 3 (Domain-Constrained Adversarial Stress-Testing):** Formulate and evaluate Domain-Constrained Flow-Feature Perturbation (DC-FFP) and Query-Guided Greedy Search (QGGS / SGGS), strictly enforcing non-decreasing byte/packet invariants ($\Delta \ge 0$), packet integrality, and RFC 791 header bounds.
+- **Objective 3 (Domain-Constrained Adversarial Stress-Testing):** Formulate and evaluate Domain-Constrained Flow-Feature Perturbation (DC-FFP) and Query-Guided Greedy Search (QGGS), strictly enforcing non-decreasing byte/packet invariants ($\Delta \ge 0$), packet integrality, and RFC 791 header bounds.
 - **Objective 4 (Port Shortcut Discovery):** Perform feature ablation studies comparing an 8-feature port-agnostic baseline against a 10-feature port-aware model under tabular destination-port feature-shift stress testing.
 - **Objective 5 (Explanation Stability Auditing):** Formulate continuous attribution drift metrics ($L_1$, normalized $L_2$, Top-$k$ overlap, Spearman rank correlation) and a validation-calibrated Four-Quadrant analysis to quantify the relationship between prediction robustness and explanation stability.
 
@@ -266,7 +266,7 @@ Evasion rates and perturbed attack recalls were evaluated across budgets $\epsil
 2. **Ensemble Fragility Under Traffic Padding ($\epsilon=0.20$):** At moderate 20% padding, over 1 in 5 attacks evade XGBoost (21.94% evasion), and over 1 in 4 evade Random Forest (28.46% evasion). Inflating `OUT_BYTES` and `FLOW_DURATION_MILLISECONDS` successfully shifts attack flows into regions of feature space occupied by legitimate bulk transfer and long-lived streaming connections.
 3. **Random Forest Exhibits Accelerated Collapse:** At extreme perturbation ($\epsilon=0.50$), Random Forest attack recall deteriorates to 51.18% (40.50% evasion), performing barely better than random chance on malicious traffic.
 
-### 7.6 Query-Guided Greedy Search (QGGS / SGGS) & Query Complexity
+### 7.6 Query-Guided Greedy Search (QGGS) & Query Complexity
 In addition to non-iterative DC-FFP, we implemented a black-box coordinate search attack. While historically referenced as Surrogate-Guided Greedy Search (SGGS) in preliminary notes, the implementation is technically formalized as **Query-Guided Greedy Search (QGGS)**, as it directly evaluates candidate step mutations by querying the target model's output probabilities without requiring a separate surrogate estimator.
 
 **Perturbation Budget Semantics:**
@@ -290,7 +290,7 @@ QGGS evaluates candidate mutations across mutable feature dimensions ($\mathcal{
 - **Observed Empirical Query Statistics:** Average search queries = **26.6**, Average total queries = **27.6**, **Maximum total queries = 46** (well within the theoretical bound of 51), Minimum total queries = **11**.
 - **Search Evasion Result:** Successfully evades **60 out of 100 attacks (60.00% evasion rate)**.
 
-**Table 5b: Query-Guided Greedy Search (QGGS / SGGS) Reconciled Configurations**
+**Table 5b: Query-Guided Greedy Search (QGGS) Reconciled Configurations**
 | Configuration | Search Iterations ($I_{\max}$) | Step Budget ($\alpha$) | Evaluated Attacks | Successfully Evaded | Evasion Rate | Avg Search Queries | Avg Total Queries | Observed Query Range | Theoretical Query Ceiling |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Config A (Audited Benchmark)** | 3 | 0.05 | 100 | 6 | **6.00%** | 14.9 | **15.9** | 11 – **16** | **16** ($1 + 3 \times 5$) |
@@ -438,7 +438,7 @@ While deep neural architectures dominate computer vision and NLP, this research 
 
 ## 13. Limitations
 
-1. **Tabular Flow-Feature Perturbation vs. Wire-Level Feasibility:** DC-FFP and QGGS / SGGS perturb tabular NetFlow summary records. While physical domain invariants ($\Delta \ge 0$, packet integrality, RFC 791 bounds) were strictly enforced in feature space, **these experiments do not prove packet-level or wire-level attack feasibility**. In live production networks, middlebox fragmentation, stateful packet filtering, and collector flow timeouts (typically 15s to 30s) could alter exported flow summaries in flight.
+1. **Tabular Flow-Feature Perturbation vs. Wire-Level Feasibility:** DC-FFP and QGGS perturb tabular NetFlow summary records. While physical domain invariants ($\Delta \ge 0$, packet integrality, RFC 791 bounds) were strictly enforced in feature space, **these experiments do not prove packet-level or wire-level attack feasibility**. In live production networks, middlebox fragmentation, stateful packet filtering, and collector flow timeouts (typically 15s to 30s) could alter exported flow summaries in flight.
 2. **NetFlow Observational Bound Scope:** The empirical condition $\text{BYTES} \ge \text{PKTS} \times 20$ held with zero violations across all 5,918,803 records in NF-CSE-CIC-IDS2018 (empirical minimum was 28.0 bytes/packet). This reflects the specific NetFlow v9 exporter counting convention that includes the minimum 20-byte IPv4 base header (RFC 791). It must **not be interpreted as a universal networking law** for all telemetries (e.g., telemetry counting only L7 application payload bytes would record zero payload bytes for standalone TCP ACK or SYN probes).
 3. **Explanation Stability Does Not Guarantee Correctness:** The discovery of **Quadrant IV (0.4% deceptive stability)** proves that an adversary can induce misclassification while maintaining SHAP attribution drift below the validation-calibrated threshold ($L_1 \le 0.2739$). Security analysts must not treat explanation stability as an oracle of classification correctness.
 4. **Port Invariance is a Function of Excluded Input Fields:** The 8-feature model's zero evasion under direct port-field manipulation is a direct mathematical consequence of excluding `L4_SRC_PORT` and `L4_DST_PORT` from its feature vector. It does not imply operational immunity to real-world multi-stage intrusion campaigns.

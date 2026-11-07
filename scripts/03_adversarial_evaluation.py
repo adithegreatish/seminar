@@ -23,7 +23,7 @@ from src.utils.config import (
 from src.utils.logger import setup_logger
 from src.models.baseline_models import NIDSModelWrapper
 from src.adversarial.threats import ThreatModel
-from src.adversarial.attacks import DomainConstrainedPerturbationAttack, SurrogateGuidedGreedySearch
+from src.adversarial.attacks import DomainConstrainedPerturbationAttack, QueryGuidedGreedySearch, SurrogateGuidedGreedySearch
 from src.evaluation.metrics import compute_binary_metrics
 
 logger = setup_logger("script_03_adversarial")
@@ -126,9 +126,9 @@ def main():
     logger.info(f"Saved robustness metrics to {metrics_csv_path}")
     
     # 4. Active Black-box Surrogate-Guided Evasion Benchmark on XGBoost
-    logger.info("--- Executing Surrogate-Guided Greedy Evasion (SGGS) Benchmark ---")
+    logger.info("--- Executing Query-Guided Greedy Search (QGGS, formerly SGGS) Benchmark ---")
     xgb_model = models["XGBoost"]
-    sggs = SurrogateGuidedGreedySearch(xgb_model, threat, max_search_iterations=3, step_budget=0.05)
+    sggs = QueryGuidedGreedySearch(xgb_model, threat, max_search_iterations=3, step_budget=0.05)
     
     # Select sample of 100 detected attacks
     detected_attack_sample = X_eval[clean_correct_attacks].iloc[:100].reset_index(drop=True)

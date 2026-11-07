@@ -11,7 +11,7 @@
 ## 1. Scope and Realism of Feature-Space Adversarial Perturbations
 
 ### 1.1 Flow-Feature Level vs. Physical Packet Transmission
-The adversarial evaluations in this research—specifically the Domain-Constrained Flow-Feature Perturbation (DC-FFP) and Query-Guided Greedy Search (QGGS / SGGS)—operate entirely within tabular feature space. 
+The adversarial evaluations in this research—specifically the Domain-Constrained Flow-Feature Perturbation (DC-FFP) and Query-Guided Greedy Search (QGGS, formerly referenced as SGGS in preliminary notes)—operate entirely within tabular feature space. 
 - Perturbations mathematically modify the aggregated statistical properties of network flows (e.g., packet counts, byte counts, flow duration) as recorded in NetFlow v9 records.
 - Although rigorous domain constraints were implemented (monotonic non-decreasing modifications $\Delta \ge 0$, integer packet counts, preservation of immutable transport protocols and TCP flags, and adherence to minimum byte-to-packet ratios), **no physical network packets were generated, fragmented, or transmitted across physical wire interfaces**.
 - In operational network environments, an adversary must realize these flow-level modifications by manipulating physical packet streams (e.g., crafting TCP dummy payloads, injecting chaff packets with high TTLs, fragmenting IP packets across anomalous MTU boundaries, or pacing transmissions to introduce jitter).
@@ -132,7 +132,7 @@ Based on the verified experimental findings and limitations, the following resea
 
 | Research Dimension | Current Implementation Scope | Known Boundary / Limitation | Proposed Long-Term Mitigation |
 | :--- | :--- | :--- | :--- |
-| **Attack Realism** | Feature-space DC-FFP & QGGS / SGGS | Tabular flow modifications; no wire transmission | Hardware testbed with TRex / Scapy packet injection |
+| **Attack Realism** | Feature-space DC-FFP & QGGS | Tabular flow modifications; no wire transmission | Hardware testbed with TRex / Scapy packet injection |
 | **Physical Constraints** | $\text{BYTES} \ge \text{PKTS} \times 20$ (RFC 791) | NetFlow v9 telemetry specific; not universal L7 law | Collector-adaptive constraint parametrization |
 | **Data Partitioning** | Stratified random splitting (70/15/15) | Potential optimistic bias across multi-flow sessions | Time-blocked chronological evaluation |
 | **Multiclass Support** | 15 attack classes in 200k sample | Severe minority scarcity (e.g., SQLi $N=6$) | Specialized synthetic oversampling or binary cascades |

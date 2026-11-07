@@ -36,7 +36,7 @@ To maintain strict scientific integrity, all findings are segregated into three 
    - **Domain-Constrained Adversarial Evasion (DC-FFP & QGGS):**
      - Under DC-FFP at budget $\epsilon=0.20$, evasion rate reaches **21.94%** for XGBoost (365/1664), **28.46%** for Random Forest (475/1669), and **21.40%** for Decision Tree (358/1673). At $\epsilon=0.50$, recall drops to **51.18% - 58.07%**.
      - Zero-epsilon identity formally validated: `assert np.array_equal(original, perturbed_at_epsilon_zero)` on all 30,000 test flows.
-     - Query-Guided Greedy Search (QGGS / SGGS):
+     - Query-Guided Greedy Search (QGGS) *(formerly referenced as SGGS in preliminary notes)*:
        - Config A (Audited 3-iteration benchmark): **6.00% evasion** (6/100; 15.9 average total queries, maximum 16).
        - Config B (Extended 10-iteration search): **60.00% evasion** (60/100; 27.6 average total queries, maximum 46).
    - **Explanation Stability Analysis:** Mean $L_1$ drift is 0.3484; Top-3 feature overlap is 83.27%; Spearman rank correlation is 0.7364. Four-quadrant analysis: Q1 (Stable Detection & Stable Explanation): 46.2% (231); Q2 (Stable Detection, Fragile Explanation): 31.0% (155); Q3 (Flipped Detection, Shifted Explanation): 22.4% (112); Q4 (Flipped Detection, Deceptive Stability): 0.4% (2).

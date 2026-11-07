@@ -1,6 +1,6 @@
 """
 Adversarial Attack Algorithms for Tabular NIDS.
-Implements Domain-Constrained Perturbation Attack (DCPA) and Surrogate-Guided Greedy Search (SGGS).
+Implements Domain-Constrained Flow-Feature Perturbation (DC-FFP / DCPA) and Query-Guided Greedy Search (QGGS, formerly SGGS).
 """
 
 from pathlib import Path

@@ -126,7 +126,7 @@ This research investigates the dual paradigm of **Explainable AI (XAI)** and **A
 - **Evasion Rate at $\epsilon=0.10$:** XGBoost = 4.45%, Random Forest = 13.90%, Decision Tree = 13.39%.
 - **Evasion Rate at $\epsilon=0.20$:** XGBoost = **21.94%**, Random Forest = **28.46%**, Decision Tree = **21.40%**.
 - **Evasion Rate at $\epsilon=0.50$:** XGBoost = **33.83%**, Random Forest = **40.50%**, Decision Tree = **34.43%**.
-- **Query-Guided Greedy Search (QGGS / SGGS) on XGBoost:**
+- **Query-Guided Greedy Search (QGGS) on XGBoost:** *(formerly referenced as SGGS in preliminary notes)*
   - Config A (3-iteration benchmark): Evasion = **6.00%** (6/100; average 15.9 total queries, maximum 16).
   - Config B (10-iteration extended search): Evasion = **60.00%** (60/100; average 27.6 total queries, maximum 46).
 

@@ -32,7 +32,7 @@
 ### Slide 3: Research Pipeline & Architecture
 - **Slide Content:**
   - Full end-to-end modular pipeline diagram:
-    Dataset Ingestion (5.9M rows) $\to$ Zero-Leakage Split $\to$ ML Baselines (DT, RF, XGBoost) $\to$ SHAP TreeExplainer $\to$ Domain-Constrained Adversarial Perturbations (DCPA/SGGS) $\to$ Explanation Stability (4 Quadrants) $\to$ Feature Ablation Study.
+    Dataset Ingestion (5.9M rows) $\to$ Zero-Leakage Split $\to$ ML Baselines (DT, RF, XGBoost) $\to$ SHAP TreeExplainer $\to$ Domain-Constrained Adversarial Perturbations (DC-FFP / QGGS) $\to$ Explanation Stability (4 Quadrants) $\to$ Feature Ablation Study.
 - **Speaking Notes (1 min):**
   > "Here is our research architecture. Rather than relying on a single monolithic notebook, the entire framework is implemented across 6 clean Python modules with an automated test suite. We perform a strict 70/15/15 train/validation/test split, ensuring zero data leakage, and establish formal evaluation criteria using Validation Macro-F1."
 
@@ -184,7 +184,7 @@
 ### Q2: "Why couldn't you just use standard FGSM or PGD attacks directly on Random Forest or XGBoost?"
 **Examiner Intent:** Testing understanding of adversarial machine learning fundamentals.  
 **Aditya's Answer:**
-> *"Standard FGSM and PGD compute gradients $\nabla_x \mathcal{L}$ of a continuous, differentiable loss function with respect to the input features. Decision trees and tree ensembles are piecewise-constant step functions; their derivatives are zero almost everywhere and undefined at split boundaries. Therefore, gradient-based attacks cannot be backpropagated through tree splits. Furthermore, unconstrained FGSM perturbs features in continuous arbitrary directions, which would create physically impossible network records—such as negative bytes, fractional packets, or corrupted protocol codes. We designed domain-constrained black-box attacks (DCPA and SGGS) that respect network protocol physics."*
+> *"Standard FGSM and PGD compute gradients $\nabla_x \mathcal{L}$ of a continuous, differentiable loss function with respect to the input features. Decision trees and tree ensembles are piecewise-constant step functions; their derivatives are zero almost everywhere and undefined at split boundaries. Therefore, gradient-based attacks cannot be backpropagated through tree splits. Furthermore, unconstrained FGSM perturbs features in continuous arbitrary directions, which would create physically impossible network records—such as negative bytes, fractional packets, or corrupted protocol codes. We designed domain-constrained black-box attacks (DC-FFP and QGGS, formerly referenced as SGGS) that respect network protocol physics."*
 
 ---
 
