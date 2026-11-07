@@ -1,0 +1,26 @@
+{
+    "case_type": "Correctly Classified Benign (TN)",
+    "actual_label": 0,
+    "predicted_label": 0,
+    "feature_values": {
+        "PROTOCOL": 6.0,
+        "L7_PROTO": 0.0,
+        "IN_BYTES": 126.0,
+        "OUT_BYTES": 86.0,
+        "IN_PKTS": 2.0,
+        "OUT_PKTS": 1.0,
+        "TCP_FLAGS": 24.0,
+        "FLOW_DURATION_MILLISECONDS": 4294801.0
+    },
+    "shap_values": {
+        "PROTOCOL": 0.037692394107580185,
+        "L7_PROTO": 0.020344696938991547,
+        "IN_BYTES": 0.15581224858760834,
+        "OUT_BYTES": -0.8093515634536743,
+        "IN_PKTS": -0.14195668697357178,
+        "OUT_PKTS": 0.05118294432759285,
+        "TCP_FLAGS": 0.0014869535807520151,
+        "FLOW_DURATION_MILLISECONDS": -1.1229407787322998
+    },
+    "base_value": 0.0
+}

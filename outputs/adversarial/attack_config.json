@@ -1,0 +1,34 @@
+{
+    "attacker_goal": "Evasion (Target: Benign classification / Label=0)",
+    "attacker_knowledge": "Grey-box / Surrogate-guided (Access to feature importance and query outputs)",
+    "mutable_features": [
+        "IN_BYTES",
+        "OUT_BYTES",
+        "IN_PKTS",
+        "OUT_PKTS",
+        "FLOW_DURATION_MILLISECONDS"
+    ],
+    "immutable_features": [
+        "PROTOCOL",
+        "L7_PROTO",
+        "TCP_FLAGS"
+    ],
+    "monotonicity": "non-decreasing (delta >= 0)",
+    "evaluated_epsilons": [
+        0.0,
+        0.05,
+        0.1,
+        0.2,
+        0.3,
+        0.5
+    ],
+    "sggs_benchmark": {
+        "target_model": "XGBoost",
+        "samples_tested": 100,
+        "evasion_rate": 0.06,
+        "initial_query_per_sample": 1,
+        "avg_search_queries_per_sample": 14.9,
+        "avg_total_queries_per_sample": 15.9,
+        "max_total_queries_per_sample": 16
+    }
+}

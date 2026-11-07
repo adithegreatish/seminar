@@ -1,0 +1,29 @@
+category,model,metric,authoritative_value,reported_value,status,audit_notes
+Binary Baseline (Validation),Decision Tree,Validation Macro-F1,0.883973,0.884,Verified by code and output,Exact value 0.883973 rounded to 0.8840.
+Binary Baseline (Validation),Random Forest,Validation Macro-F1,0.905646,0.9056,Verified by code and output,Exact value 0.905646 rounded to 0.9056.
+Binary Baseline (Validation),XGBoost,Validation Macro-F1,0.917064,0.9171,Requires correction in prior narrative,Authoritative CSV is 0.917064. An interim narrative mention of 0.9231 conflated validation with test Macro-F1 (0.9238).
+Binary Baseline (Test),Decision Tree,Test Accuracy,0.971333,0.9713,Verified by code and output,"29,140 / 30,000 correct."
+Binary Baseline (Test),Decision Tree,Test Macro-F1,0.890058,0.8901,Verified by code and output,Macro-F1 verified.
+Binary Baseline (Test),Decision Tree,Test False Positive Rate,0.020924,0.0209,Verified by code and output,"FP=587, TN=27,467. FPR = 587/28054 = 0.020924."
+Binary Baseline (Test),Decision Tree,Test ROC-AUC,0.950623,0.9194,Corrected,True probability ROC-AUC is 0.950623. A value of 0.9194 previously reported represented hard-prediction Balanced Accuracy (macro-recall).
+Binary Baseline (Test),Random Forest,Test Accuracy,0.977933,0.9779,Verified by code and output,"29,338 / 30,000 correct."
+Binary Baseline (Test),Random Forest,Test Macro-F1,0.911339,0.9113,Verified by code and output,Macro-F1 verified.
+Binary Baseline (Test),Random Forest,Test False Positive Rate,0.013724,0.0137,Verified by code and output,"FP=385, TN=27,669. FPR = 385/28054 = 0.013724."
+Binary Baseline (Test),Random Forest,Test ROC-AUC,0.957353,0.9220,Corrected,True probability ROC-AUC is 0.957353. A value of 0.9220 previously reported represented hard-prediction Balanced Accuracy (macro-recall).
+Binary Baseline (Test),XGBoost,Test Accuracy,0.981567,0.9816,Verified by code and output,"29,447 / 30,000 correct (98.1567%)."
+Binary Baseline (Test),XGBoost,Test Macro-F1,0.923828,0.9238,Verified by code and output,Macro-F1 verified.
+Binary Baseline (Test),XGBoost,Test False Positive Rate,0.00966,0.0097,Verified by code and output,"FP=271, TN=27,783. FPR = 271/28054 = 0.009660."
+Binary Baseline (Test),XGBoost,Test ROC-AUC,0.962096,0.9868,Requires correction in prior narrative,ROC-AUC using raw tree probabilities on 8 features is 0.962096. A value of 0.9868 was reported from an uncalibrated threshold run and has been reconciled.
+Adversarial Robustness (eps=0.20),XGBoost,Evasion Rate (eps=0.20),0.219351,0.2194,Verified by code and output,"Numerator=365, Denominator=1664 initially detected attacks. 365/1664 = 21.9351%."
+Adversarial Robustness (eps=0.20),Random Forest,Evasion Rate (eps=0.20),0.284602,0.2846,Verified by code and output,"Numerator=475, Denominator=1669 initially detected attacks. 475/1669 = 28.4602%."
+Adversarial Robustness (eps=0.20),Decision Tree,Evasion Rate (eps=0.20),0.213987,0.214,Verified by code and output,"Numerator=358, Denominator=1673 initially detected attacks. 358/1673 = 21.3987%."
+Adversarial Robustness (SGGS Benchmark),XGBoost,SGGS Config A Evasion Rate (16 Queries),0.060000,0.7700,Corrected in narrative,"Audited 16-query benchmark (iters=3, step=0.05): Numerator=6, Denominator=100 (6.00%). The value 0.77 was an unverified narrative draft entry."
+Adversarial Robustness (SGGS Search),XGBoost,SGGS Config B Evasion Rate (Extended),0.600000,0.6000,Verified separate configuration,"Extended search (iters=10, step=0.05): Numerator=60, Denominator=100 (60.00%). Avg queries = 38.9, Max queries = 58."
+Port Feature Ablation,XGBoost (+Ports),Clean Test Accuracy,0.989,0.989,Verified by code and output,Accuracy on 10 features.
+Port Feature Ablation,XGBoost (+Ports),Flow Padding Evasion Rate (eps=0.20),0.032934,0.0329,Verified by code and output,"Ports held static during flow padding, causing trees to anchor on ports."
+Port Feature Ablation,XGBoost (+Ports),Dest Port Redirection Evasion Rate,0.941317,0.9413,Newly evaluated during audit,1572 / 1670 attacks evade when destination port is redirected to alternate port.
+Port Feature Invariance,XGBoost (Baseline 8-feat),Port Invariance Under Direct Redirection,0.000000,0.0000,Technically qualified,0/1664 evade; the 8-feature model is invariant to direct changes in port fields when no other features are modified.
+Explanation Stability,XGBoost,Mean L1 Drift (eps=0.20),0.348352,0.3484,Verified by code and output,N=500 paired samples. Median = 0.283314.
+Explanation Stability,XGBoost,Mean Top-3 Overlap (eps=0.20),0.832667,0.8327,Verified by code and output,N=500 paired samples.
+Explanation Stability,XGBoost,Mean Spearman Rank Corr (eps=0.20),0.736429,0.7364,Verified by code and output,N=500 paired samples.
+Cross-Dataset Validation,All Models,UNSW-NB15 Validation,,Pending Placement,Not yet experimentally evaluated,Formal protocol defined; raw CSV file not present locally in data/raw.

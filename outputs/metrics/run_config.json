@@ -1,0 +1,19 @@
+{
+    "dataset": "NF-CSE-CIC-IDS2018",
+    "sample_size": 200000,
+    "train_size": 140000,
+    "val_size": 30000,
+    "test_size": 30000,
+    "features": [
+        "PROTOCOL",
+        "L7_PROTO",
+        "IN_BYTES",
+        "OUT_BYTES",
+        "IN_PKTS",
+        "OUT_PKTS",
+        "TCP_FLAGS",
+        "FLOW_DURATION_MILLISECONDS"
+    ],
+    "best_binary_model": "XGBoost",
+    "random_seed": 42
+}

@@ -1,0 +1,43 @@
+experiment_category,model_configuration,condition_or_scenario,accuracy,macro_f1,attack_recall,false_positive_rate,roc_auc,evasion_rate,inference_latency_ms,notes
+1. Clean Baseline (Test Partition),Decision Tree,Unperturbed 8-Feature Test Set,0.9713333333333334,0.8900581755885479,0.8597122302158273,0.0209239324160547,0.9506228756008728,0.0,0.0001240571339925,"Zero data leakage; test set N=30,000; ROC-AUC computed from continuous predicted probabilities"
+1. Clean Baseline (Test Partition),Random Forest,Unperturbed 8-Feature Test Set,0.9779333333333332,0.9113392857142856,0.8576567317574512,0.0137235331859984,0.9573531145446922,0.0,0.0014692624409993,"Zero data leakage; test set N=30,000; ROC-AUC computed from continuous predicted probabilities"
+1. Clean Baseline (Test Partition),XGBoost,Unperturbed 8-Feature Test Set,0.9815666666666668,0.9238284453318198,0.8550873586844809,0.0096599415413131,0.962095528437265,0.0,0.0002504666646321,"Zero data leakage; test set N=30,000; ROC-AUC computed from continuous predicted probabilities"
+1. Clean Baseline (Test Partition),Decision Tree Multiclass,Unperturbed 8-Feature Test Set,0.6109666666666667,0.5431715053308596,,,,0.0,0.0001975933710734,"Zero data leakage; test set N=30,000; ROC-AUC computed from continuous predicted probabilities"
+1. Clean Baseline (Test Partition),Random Forest Multiclass,Unperturbed 8-Feature Test Set,0.7334333333333334,0.583827857858833,,,,0.0,0.0050500949223836,"Zero data leakage; test set N=30,000; ROC-AUC computed from continuous predicted probabilities"
+1. Clean Baseline (Test Partition),XGBoost Multiclass,Unperturbed 8-Feature Test Set,0.6527,0.5694237136105958,,,,0.0,0.0012648582458496,"Zero data leakage; test set N=30,000; ROC-AUC computed from continuous predicted probabilities"
+2. Adversarial Robustness (DC-FFP),Decision Tree,Budget epsilon = 0.00,0.9376498800959232,0.9280962960506682,0.8597122302158273,0.0233812949640287,,0.0,,Evaded: 0/1673
+2. Adversarial Robustness (DC-FFP),Random Forest,Budget epsilon = 0.00,0.9421034600890716,0.932901115342764,0.8576567317574512,0.0156731757451181,,0.0,,Evaded: 0/1669
+2. Adversarial Robustness (DC-FFP),XGBoost,Budget epsilon = 0.00,0.9450154162384378,0.9360203298520822,0.8550873586844809,0.0100205549845837,,0.0,,Evaded: 0/1664
+2. Adversarial Robustness (DC-FFP),Decision Tree,Budget epsilon = 0.05,0.882494004796163,0.8650298238313219,0.7841726618705036,0.0683453237410072,,0.1034070531978481,,Evaded: 173/1673
+2. Adversarial Robustness (DC-FFP),Random Forest,Budget epsilon = 0.05,0.9129838985954094,0.8956393736273589,0.7579650565262076,0.0095066803699897,,0.1162372678250449,,Evaded: 194/1669
+2. Adversarial Robustness (DC-FFP),XGBoost,Budget epsilon = 0.05,0.9385063377869132,0.9287217669219918,0.8520041109969168,0.0182425488180883,,0.0066105769230769,,Evaded: 11/1664
+2. Adversarial Robustness (DC-FFP),Decision Tree,Budget epsilon = 0.10,0.86810551558753,0.8484599431496394,0.7620760534429599,0.0788797533401849,,0.1338912133891213,,Evaded: 224/1673
+2. Adversarial Robustness (DC-FFP),Random Forest,Budget epsilon = 0.10,0.906988694758479,0.8877096243119588,0.7389516957862282,0.0089928057553956,,0.1390053924505692,,Evaded: 232/1669
+2. Adversarial Robustness (DC-FFP),XGBoost,Budget epsilon = 0.10,0.9239465570400822,0.911278442136531,0.8191161356628982,0.0236382322713257,,0.0444711538461538,,Evaded: 74/1664
+2. Adversarial Robustness (DC-FFP),Decision Tree,Budget epsilon = 0.20,0.843268242548818,0.8166892383336396,0.6937307297019527,0.0819630010277492,,0.2139868499701135,,Evaded: 358/1673
+2. Adversarial Robustness (DC-FFP),Random Forest,Budget epsilon = 0.20,0.868448098663926,0.8333894203613749,0.6145940390544707,0.0046248715313463,,0.2846015578190533,,Evaded: 475/1669
+2. Adversarial Robustness (DC-FFP),XGBoost,Budget epsilon = 0.20,0.869475847893114,0.8410731650853376,0.6700924974306269,0.0308324768756423,,0.2193509615384615,,Evaded: 365/1664
+2. Adversarial Robustness (DC-FFP),Decision Tree,Budget epsilon = 0.30,0.8492634463857486,0.8220219868723964,0.6870503597122302,0.0696300102774922,,0.2175732217573222,,Evaded: 364/1673
+2. Adversarial Robustness (DC-FFP),Random Forest,Budget epsilon = 0.30,0.8581706063720452,0.8191413274068088,0.5904419321685509,0.0079650565262076,,0.3133612941881366,,Evaded: 523/1669
+2. Adversarial Robustness (DC-FFP),XGBoost,Budget epsilon = 0.30,0.8581706063720452,0.8279123118427714,0.658273381294964,0.0418807810894141,,0.2331730769230769,,Evaded: 388/1664
+2. Adversarial Robustness (DC-FFP),Decision Tree,Budget epsilon = 0.50,0.8050702295306612,0.7638121482144677,0.5806783144912642,0.0827338129496402,,0.3442916915720263,,Evaded: 576/1673
+2. Adversarial Robustness (DC-FFP),Random Forest,Budget epsilon = 0.50,0.8245974648852347,0.7711163249428759,0.5118191161356629,0.0190133607399794,,0.4050329538645896,,Evaded: 676/1669
+2. Adversarial Robustness (DC-FFP),XGBoost,Budget epsilon = 0.50,0.8299075025693731,0.7865568378417694,0.5688591983556013,0.039568345323741,,0.3383413461538461,,Evaded: 563/1664
+2. Adversarial Robustness (SGGS Search),XGBoost,"SGGS Config A (Audited 16-Query Benchmark: max_iters=3, step=0.05, max_eps=0.50)",,,,,,0.06,,"Candidates=100; Initially detected=100; Evaded=6 (6.00%); Queries: Init=1, Avg Search=15.0, Avg Total=16.0, Max=17, Min=11"
+2. Adversarial Robustness (SGGS Search),XGBoost,"SGGS Config B (Extended Search: max_iters=10, step=0.05, max_eps=0.50)",,,,,,0.6,,"Candidates=100; Initially detected=100; Evaded=60 (60.00%); Queries: Init=1, Avg Total=38.9, Max=58, Min=11"
+3. Port-Shift Stress Test (8-feat Control),XGBoost Baseline (8 features),1. Clean Baseline,0.9815666666666668,,0.8550873586844809,,,0.0,,Evaded: 0/1664
+3. Port-Shift Stress Test (10-feat Port Model),XGBoost Extended (10 features with Ports),1. Clean Baseline,0.989,,0.8581706063720452,,,0.0,,Evaded: 0/1670
+3. Port-Shift Stress Test (8-feat Control),XGBoost Baseline (8 features),2. Source-Port Randomization,0.9815666666666668,,0.8550873586844809,,,0.0,,Evaded: 0/1664
+3. Port-Shift Stress Test (10-feat Port Model),XGBoost Extended (10 features with Ports),2. Source-Port Randomization,0.9885666666666668,,0.8514902363823227,,,0.0077844311377245,,Evaded: 13/1670
+3. Port-Shift Stress Test (8-feat Control),XGBoost Baseline (8 features),3. Destination Service-Port Shift,0.9815666666666668,,0.8550873586844809,,,0.0,,The 8-feature model is invariant to direct changes in source and destination port fields when no other model input features are modified; Evaded: 0/1664
+3. Port-Shift Stress Test (10-feat Port Model),XGBoost Extended (10 features with Ports),3. Destination Service-Port Shift,0.9366,,0.0503597122302158,,,0.9413173652694612,,Shortcut collapse: 1572/1670 attacks evade (94.13%) under destination port redirection
+3. Port-Shift Stress Test (8-feat Control),XGBoost Baseline (8 features),4. Flow-Feature Perturbation Only (eps=0.20),0.9491,,0.6700924974306269,,,0.2193509615384615,,Evaded: 365/1664
+3. Port-Shift Stress Test (10-feat Port Model),XGBoost Extended (10 features with Ports),4. Flow-Feature Perturbation Only (eps=0.20),0.9870333333333332,,0.8304213771839671,,,0.0329341317365269,,Evaded: 55/1670
+3. Port-Shift Stress Test (8-feat Control),XGBoost Baseline (8 features),5. Combined Port Shift + Flow Perturbation,0.9491,,0.6700924974306269,,,0.2193509615384615,,Evaded: 365/1664
+3. Port-Shift Stress Test (10-feat Port Model),XGBoost Extended (10 features with Ports),5. Combined Port Shift + Flow Perturbation,0.9358666666666666,,0.0416238437821171,,,0.9520958083832336,,Evaded: 1590/1670
+4. Inference Latency Benchmark,Decision Tree,Single-Sample Streaming (N=1),,,,,,,0.3747240000484453,"Throughput: 2,668.6 flows/sec (raw estimator predict only)"
+4. Inference Latency Benchmark,Decision Tree,"Vectorized Batch (N=30,000)",,,,,,,7.18483333397065e-05,"Throughput: 13,918,207.3 flows/sec (raw estimator predict only)"
+4. Inference Latency Benchmark,Random Forest,Single-Sample Streaming (N=1),,,,,,,17.72508199997901,Throughput: 56.4 flows/sec (raw estimator predict only)
+4. Inference Latency Benchmark,Random Forest,"Vectorized Batch (N=30,000)",,,,,,,0.0012734143333364,"Throughput: 785,290.4 flows/sec (raw estimator predict only)"
+4. Inference Latency Benchmark,XGBoost,Single-Sample Streaming (N=1),,,,,,,0.6251379999775963,"Throughput: 1,599.6 flows/sec (raw estimator predict only)"
+4. Inference Latency Benchmark,XGBoost,"Vectorized Batch (N=30,000)",,,,,,,0.0002278389999901,"Throughput: 4,389,064.2 flows/sec (raw estimator predict only)"

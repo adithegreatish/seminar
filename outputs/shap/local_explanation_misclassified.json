@@ -1,0 +1,26 @@
+{
+    "case_type": "Misclassified Benign as Attack (FP)",
+    "actual_label": 0,
+    "predicted_label": 1,
+    "feature_values": {
+        "PROTOCOL": 6.0,
+        "L7_PROTO": 0.0,
+        "IN_BYTES": 40.0,
+        "OUT_BYTES": 0.0,
+        "IN_PKTS": 1.0,
+        "OUT_PKTS": 0.0,
+        "TCP_FLAGS": 20.0,
+        "FLOW_DURATION_MILLISECONDS": 0.0
+    },
+    "shap_values": {
+        "PROTOCOL": 0.025615761056542397,
+        "L7_PROTO": 0.16603238880634308,
+        "IN_BYTES": -0.19566763937473297,
+        "OUT_BYTES": 0.9788557887077332,
+        "IN_PKTS": -0.36495500802993774,
+        "OUT_PKTS": 0.16218483448028564,
+        "TCP_FLAGS": 0.5829726457595825,
+        "FLOW_DURATION_MILLISECONDS": 0.9143936038017273
+    },
+    "base_value": 0.0
+}

@@ -1,0 +1,6 @@
+scenario,port_modification,xgb_8feat_accuracy,xgb_8feat_recall,xgb_8feat_evasion_rate,xgb_8feat_evaded_count,xgb_10feat_accuracy,xgb_10feat_recall,xgb_10feat_evasion_rate,xgb_10feat_evaded_count
+1. Clean Baseline,None / None,0.9815666666666667,0.8550873586844809,0.0,0,0.989,0.8581706063720452,0.0,0
+2. Source-Port Randomization,Ephemeral Randomization (49152-65535) / None,0.9815666666666667,0.8550873586844809,0.0,0,0.9885666666666667,0.8514902363823227,0.007784431137724551,13
+3. Destination Service-Port Shift,"None / Alternate Ports (80->8080, 22->2222, 21->2121)",0.9815666666666667,0.8550873586844809,0.0,0,0.9366,0.050359712230215826,0.9413173652694611,1572
+4. Flow-Feature Perturbation Only (eps=0.20),Static / Static (eps=0.20 padding/delay),0.9491,0.6700924974306269,0.21935096153846154,365,0.9870333333333333,0.8304213771839671,0.03293413173652695,55
+5. Combined Port Shift + Flow Perturbation,Alternate Ports / Alternate Ports + eps=0.20 padding,0.9491,0.6700924974306269,0.21935096153846154,365,0.9358666666666666,0.04162384378211716,0.9520958083832335,1590

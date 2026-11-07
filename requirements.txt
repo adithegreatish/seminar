@@ -1,0 +1,19 @@
+# Core Data Science and Machine Learning
+numpy>=2.0.0
+pandas>=2.1.0
+pyarrow>=14.0.0
+scikit-learn>=1.4.0
+scipy>=1.12.0
+xgboost>=2.0.0
+
+# Explainability & Robustness
+shap>=0.45.0
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# Testing & Utilities
+pytest>=8.0.0
+tqdm>=4.66.0
+
+# Interactive Dashboard (Phase 16)
+streamlit>=1.32.0

@@ -1,0 +1,126 @@
+{
+    "dataset_name": "NF-CSE-CIC-IDS2018",
+    "file_path": "C:\\Users\\adity\\Downloads\\seminar\\Implementation\\data\\raw\\NF-CSE-CIC-IDS2018.parquet",
+    "total_records": 5918803,
+    "total_columns": 12,
+    "duplicate_rows": 0,
+    "duplicate_ratio": 0.0,
+    "missing_values_per_col": {
+        "L4_SRC_PORT": 0,
+        "L4_DST_PORT": 0,
+        "PROTOCOL": 0,
+        "L7_PROTO": 0,
+        "IN_BYTES": 0,
+        "OUT_BYTES": 0,
+        "IN_PKTS": 0,
+        "OUT_PKTS": 0,
+        "TCP_FLAGS": 0,
+        "FLOW_DURATION_MILLISECONDS": 0,
+        "Label": 0,
+        "Attack": 0
+    },
+    "infinite_values_per_col": {
+        "L4_SRC_PORT": 0,
+        "L4_DST_PORT": 0,
+        "PROTOCOL": 0,
+        "L7_PROTO": 0,
+        "IN_BYTES": 0,
+        "OUT_BYTES": 0,
+        "IN_PKTS": 0,
+        "OUT_PKTS": 0,
+        "TCP_FLAGS": 0,
+        "FLOW_DURATION_MILLISECONDS": 0,
+        "Label": 0
+    },
+    "binary_distribution": {
+        "Benign (0)": 5534773,
+        "Attack (1)": 384030,
+        "Attack_Percentage": 6.488305152241086
+    },
+    "is_label_mapping_valid": true,
+    "attack_distribution": {
+        "Benign": 5534773,
+        "DoS attacks-Hulk": 108129,
+        "SSH-Bruteforce": 71148,
+        "Infilteration": 59374,
+        "DDoS attacks-LOIC-HTTP": 49751,
+        "DoS attacks-GoldenEye": 32582,
+        "DoS attacks-Slowloris": 17109,
+        "Bot": 15498,
+        "DoS attacks-SlowHTTPTest": 14116,
+        "FTP-BruteForce": 14116,
+        "DDOS attack-LOIC-UDP": 1667,
+        "DDOS attack-HOIC": 230,
+        "Brute Force -Web": 173,
+        "Brute Force -XSS": 101,
+        "SQL Injection": 36
+    },
+    "rare_attacks": {
+        "DDOS attack-HOIC": 230,
+        "Brute Force -Web": 173,
+        "Brute Force -XSS": 101,
+        "SQL Injection": 36
+    },
+    "crosstab_label_attack": {
+        "Benign": {
+            "0": 5534773,
+            "1": 0
+        },
+        "Bot": {
+            "0": 0,
+            "1": 15498
+        },
+        "Brute Force -Web": {
+            "0": 0,
+            "1": 173
+        },
+        "Brute Force -XSS": {
+            "0": 0,
+            "1": 101
+        },
+        "DDOS attack-HOIC": {
+            "0": 0,
+            "1": 230
+        },
+        "DDOS attack-LOIC-UDP": {
+            "0": 0,
+            "1": 1667
+        },
+        "DDoS attacks-LOIC-HTTP": {
+            "0": 0,
+            "1": 49751
+        },
+        "DoS attacks-GoldenEye": {
+            "0": 0,
+            "1": 32582
+        },
+        "DoS attacks-Hulk": {
+            "0": 0,
+            "1": 108129
+        },
+        "DoS attacks-SlowHTTPTest": {
+            "0": 0,
+            "1": 14116
+        },
+        "DoS attacks-Slowloris": {
+            "0": 0,
+            "1": 17109
+        },
+        "FTP-BruteForce": {
+            "0": 0,
+            "1": 14116
+        },
+        "Infilteration": {
+            "0": 0,
+            "1": 59374
+        },
+        "SQL Injection": {
+            "0": 0,
+            "1": 36
+        },
+        "SSH-Bruteforce": {
+            "0": 0,
+            "1": 71148
+        }
+    }
+}
